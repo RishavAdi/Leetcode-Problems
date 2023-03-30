@@ -1,0 +1,34 @@
+class Solution {
+public:
+bool helperMatching(string&s,int si,string&p,int pi){
+    //bc
+    if(si==s.size()&&pi==p.size())
+    return true;
+    if(si==s.size()&&pi<p.size()){
+        while(pi!=p.size()){
+            if(p[pi]!='*')
+            return false;
+            pi++;
+        }
+        return true;
+    }
+
+
+
+    if(s[si]==p[pi]&&p[pi]=='?'){
+        helperMatching(s,si+1,p,pi+1);
+    }
+    if(p[pi]=='*'){
+        bool case1= helperMatching(s,si,p,pi+1);
+        bool case2= helperMatching(s,si+1,p,pi);
+        return case1||case2;
+    }
+    //if character does not match
+    return false;
+}
+    bool isMatch(string s, string p) {
+        int p1=0;
+        int si=0;
+        return helperMatching(s,si,p,p1);
+    }
+};
