@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool solve(TreeNode* root, long long int lb, long long int ub) {
+        if (root == nullptr) {
+            return true;
+        }
+
+        if (root->val > lb && root->val < ub) {
+            bool leftPart = solve(root->left, lb, root->val);
+            bool rightPart = solve(root->right, root->val, ub);
+            return leftPart && rightPart;
+        } else {
+            return false;
+        }
+    }
+
+    bool isValidBST(TreeNode* root) {
+        long long int lowerBound = LLONG_MIN;
+        long long int upperBound = LLONG_MAX;
+        return solve(root, lowerBound, upperBound);
+    }
+};
