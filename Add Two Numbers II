@@ -1,0 +1,35 @@
+class Solution {
+public:
+ListNode* reverseList(ListNode *head){
+    if(head->next==NULL||head==NULL) return head;
+    ListNode *p=reverseList(head->next);
+    head->next->next=head;
+    head->next=NULL;
+    return p;
+}
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode*p1=reverseList(l1);
+        ListNode*p2=reverseList(l2);
+        ListNode*dummy=new ListNode();
+        ListNode*temp=dummy;
+        int carry=0;
+        while(p1!=NULL||p2!=NULL||carry){
+            int sum=0;
+            if(p1!=NULL){
+            sum+=p1->val;
+            p1=p1->next;
+            }
+            if(p2!=NULL){
+                sum+=p2->val;
+                p2=p2->next;
+            }
+            sum+=carry;
+            carry=sum/10;
+            ListNode* node=new ListNode(sum%10);
+            temp->next=node;
+            temp=temp->next;
+        }
+        return reverseList(dummy->next);
+        
+    }
+};
