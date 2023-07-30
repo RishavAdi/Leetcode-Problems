@@ -1,0 +1,22 @@
+class Solution {
+public:
+vector<pair<int,int>>p={{100,0},{75,25},{50,50},{25,75}};
+double solve(double a,double b,vector<vector<double>>&v){
+    if(a<=0&&b<=0) return 0.5;
+    if(a<=0) return 1.0;
+    if(b<=0) return 0;
+    if(v[a][b]!=-1.0) return v[a][b];
+    double prob=0.0;
+    for(auto&i:p){
+        int a_taken=i.first;
+        int b_taken=i.second;
+        prob+=solve(a-a_taken,b-b_taken,v);
+    }
+    return v[a][b]= 0.25*prob;
+}
+    double soupServings(int n) {
+        if(n>5000) return 1.0;
+        vector<vector<double>>v(n+2,vector<double>(n+2,-1.0));
+        return solve(n,n,v);
+    }
+};
