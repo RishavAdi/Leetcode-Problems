@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string convertToTitle(int columnNumber) {
+        string result="";
+        while(columnNumber>0){
+            columnNumber--;//Edge case take care of it
+            int rem=columnNumber%26;
+             result+=rem+'A';
+            columnNumber=columnNumber/26;
+        }
+        int n=result.length();
+        int i=0,j=n-1;
+        while(i<n/2){
+            swap(result[i],result[j]);
+            i++;j--;
+        }
+        return result;
+    }
+};
