@@ -1,0 +1,28 @@
+class Solution {
+public:int t[101][101];
+bool f(string &s1,string &s2,string &s3,int i,int j){
+    bool result=false;
+    if(i>=s1.size()&&j>=s2.size()&&(i+j)>=s3.size()){
+        return true;
+    }
+    if((i+j)>=s3.size())
+    return false;
+    if(t[i][j]!=-1) return t[i][j];
+    if(s1[i]==s3[i+j]){
+ result=f(s1,s2,s3,i+1,j);
+ if(result==true) return t[i][j]=result;
+    }
+   
+    if(s2[j]==s3[i+j])
+    result=f(s1,s2,s3,i,j+1);
+    return t[i][j]=result;
+}
+    bool isInterleave(string s1, string s2, string s3) {
+        int n=s1.size();
+        int  m=s2.size();
+        int N=s3.size();
+        if(m+n!=N) return false;
+        memset(t,-1,sizeof(t));
+        return f(s1,s2,s3,0,0);
+    }
+};
