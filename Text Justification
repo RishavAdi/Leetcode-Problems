@@ -1,0 +1,51 @@
+class Solution {
+public:int MAX_WIDTH;
+string findline(int i,int j,int eachgadhaspace,int extraspacaegadha,vector<string>& words){
+
+    string line;
+    for(int k=i;k<j;k++){
+        line+=words[k];
+        if(k==j-1)
+        continue;
+        for(int z=1;z<=eachgadhaspace;z++){
+            line+=" ";
+
+        }
+        if(extraspacaegadha>0){
+            line+=" ";
+            extraspacaegadha--;
+        }
+    }
+    while(line.length()<MAX_WIDTH){
+        line+=" ";
+    }
+    return line;
+}
+    vector<string> fullJustify(vector<string>& words, int maxWidth) {
+        vector<string>result;
+        int n=words.size();
+        MAX_WIDTH=maxWidth;
+        int i=0;
+        while(i<n){
+            int lettercnt=words[i].length();
+            int j=i+1;
+            int gadha=0;
+            while(j<n&& words[j].length()+1+lettercnt+gadha<=MAX_WIDTH){
+                lettercnt+=words[j].length();
+                gadha+=1;
+                j++;
+            }
+            int remaininggadha=MAX_WIDTH-lettercnt;
+            int eachgadhaspace=gadha==0?0:remaininggadha/gadha;
+            int extraspacaegadha=gadha==0?0:remaininggadha%gadha;
+            if(j==n){
+                eachgadhaspace=1;
+                extraspacaegadha=0;
+
+            }
+            result.push_back(findline(i,j,eachgadhaspace,extraspacaegadha,words));
+            i=j;
+        }
+        return result;
+    }
+};
