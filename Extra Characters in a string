@@ -1,0 +1,27 @@
+class Solution {
+public:unordered_set<string>st;
+int n;
+int solve(string &s,int id,vector<int>&dp){
+
+    if(id>=n) return 0;
+    if(dp[id]!=-1) return dp[id];
+    string currstr="";
+    int minExtra=n;
+    for(int i=id;i<s.size();i++){
+        currstr.push_back(s[i]);
+        int currExtra=(st.find(currstr)==st.end())?currstr.length():0;
+        int nextExtra=solve(s,i+1,dp);
+        int totalExtra=currExtra+nextExtra;
+        minExtra=min(minExtra,totalExtra);
+    }
+    return dp[id]=minExtra;
+}
+    int minExtraChar(string s, vector<string>& dictionary) {
+        n=s.size();
+        vector<int>dp(51,-1);
+        for(string &word:dictionary){
+            st.insert(word);
+        }
+        return solve(s,0,dp);
+    }
+};
