@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& people) {
+        int n=people.size();
+        int m=flowers.size();
+        vector<int>s(m);
+        vector<int>l(m);
+        for(int i=0;i<m;i++){
+            s[i]=flowers[i][0];
+            l[i]=flowers[i][1];
+        }
+        sort(s.begin(),s.end());
+        sort(l.begin(),l.end());
+        vector<int>result(n);
+        for(int i=0;i<n;i++){
+             int ui=upper_bound(s.begin(),s.end(),people[i])-s.begin();
+             int li=lower_bound(l.begin(),l.end(),people[i])-l.begin();
+             result[i]=ui-li;
+        }
+       return result;
+    }
+};
