@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int n;
+    int t[501][501];
+    
+    int solve( vector<int>& cost, vector<int>& time,int idx, int remaining) {
+        
+        if(remaining <= 0)
+            return 0;
+        
+        if(idx == n) {
+            return 1e9;
+        }
+        
+        if(t[idx][remaining] != -1) {
+            return t[idx][remaining];
+        }
+        
+        int paint_i     = cost[idx] + solve(cost, time,idx+1, remaining - 1 - time[idx] );
+        int not_paint_i = solve( cost, time,idx+1, remaining);
+        
+        
+        return t[idx][remaining]=  min(paint_i, not_paint_i);
+        
+    }
+    
+    int paintWalls(vector<int>& cost, vector<int>& time) {
+        n = cost.size();
+         memset(t, -1, sizeof(t));
+        return solve(cost, time,0, n);
+        
+        
+    }
+};
