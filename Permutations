@@ -1,3 +1,4 @@
+//First approach
 class Solution {
 public:
 void fp(vector<int>& nums,vector<int>&ans,vector<vector<int>>&result,int freq[]){
@@ -21,6 +22,27 @@ void fp(vector<int>& nums,vector<int>&ans,vector<vector<int>>&result,int freq[])
         int freq[nums.size()];
         for(int i=0;i<nums.size();i++) freq[i]=0;
         fp(nums,ans,result,freq);
+        return result;
+    }
+};
+
+//2nd Approach
+class Solution {
+public:
+void fp(int ind,vector<int>& nums,vector<vector<int>>&result){
+    if(ind==nums.size()){
+        result.push_back(nums);
+        return;
+    }
+    for(int i=ind;i<nums.size();i++){
+        swap(nums[ind],nums[i]);
+        fp(ind+1,nums,result);
+        swap(nums[ind],nums[i]);
+    }
+}
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>>result;
+        fp(0,nums,result);
         return result;
     }
 };
