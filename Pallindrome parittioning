@@ -1,0 +1,32 @@
+class Solution {
+public:
+vector<vector<string>>result;
+     vector<string >ans;  
+     bool isp(int e,int s,string st){
+         while(s<=e){
+             if(st[s++]!=st[e--]){
+                 return false;
+             }
+             
+         }
+         return true;
+     } 
+void fs(int ind,string s, vector<string >&ans,vector<vector<string>>&result){
+    if(ind==s.size()) {
+        result.push_back(ans);
+        return;
+    }
+    for(int i=ind;i<s.size();i++){
+        if(isp(i,ind,s)){
+            ans.push_back(s.substr(ind,i-ind+1));
+            fs(i+1,s,ans,result);
+            ans.pop_back();
+        }
+    }
+}
+
+    vector<vector<string>> partition(string s) {
+        fs(0,s,ans,result);
+        return result;
+    }
+};
