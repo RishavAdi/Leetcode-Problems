@@ -1,0 +1,37 @@
+//Approach 1
+class Solution {
+public:
+int count(int a){
+    int cnt=0;
+    while(a){
+        cnt+=(a&1);
+        a>>=1;
+    }
+    return cnt;
+}
+    vector<int> sortByBits(vector<int>& arr) {
+        auto lamda=[&](int &a,int &b){
+            int ca=count(a);
+            int cb=count(b);
+            if(ca==cb) return a<b;
+            return ca<cb;
+        };
+        sort(begin(arr),end(arr),lamda);
+        return arr;
+    }
+};
+
+//2nd Approach
+class Solution {
+public:
+    vector<int> sortByBits(vector<int>& arr) {
+        auto lamda=[&](int &a,int &b){
+            int ca=__builtin_popcount(a);
+            int cb=__builtin_popcount(b);
+            if(ca==cb) return a<b;
+            return ca<cb;
+        };
+        sort(begin(arr),end(arr),lamda);
+        return arr;
+    }
+};
