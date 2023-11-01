@@ -1,0 +1,31 @@
+class Solution {
+public:
+int curre=0;
+int maxf=0;
+int currf=0;
+vector<int>result;
+void dfs(TreeNode* root){
+    if(!root) return;
+
+    dfs(root->left);
+    if(root->val==curre){
+        currf++;
+    }else{
+        curre=root->val;
+        currf=1;
+    }
+    if(currf>maxf){
+        maxf=currf;
+        result={};
+        result.push_back(root->val);
+    }
+    else if(currf==maxf){
+        result.push_back(root->val);
+    }
+    dfs(root->right);
+}
+    vector<int> findMode(TreeNode* root) {
+        dfs(root);
+        return result;
+    }
+};
