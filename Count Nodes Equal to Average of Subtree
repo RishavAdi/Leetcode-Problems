@@ -1,0 +1,25 @@
+class Solution {
+public:
+int result=0;
+int sum(TreeNode* root,int & cnt){
+    if(!root) return 0;
+    cnt++;
+    int ls=sum(root->left,cnt);
+    int rs=sum(root->right,cnt);
+    return ls+rs+root->val;
+}
+void solve(TreeNode* root){
+    if(!root) return;
+    int cnt=0;
+    int ts=sum(root,cnt);
+    if(ts/cnt==root->val) result++;
+    solve(root->left);
+    solve(root->right);
+}
+    int averageOfSubtree(TreeNode* root) {
+        
+        solve(root);
+        return result;
+
+    }
+};
